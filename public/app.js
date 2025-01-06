@@ -79,7 +79,7 @@ function isPendingStreak(data) {
 function addChatItem(color, data, text, summarize) {
     let container = location.href.includes('obs.html') ? $('.eventcontainer') : $('.chatcontainer');
 
-    if (messageListIds.find(data.msgId)) {
+    if (messageListIds.find(id => data.msgId === id)) {
         return
     }
 
