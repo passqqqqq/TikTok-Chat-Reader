@@ -10,6 +10,8 @@ let diamondsCount = 0;
 // These settings are defined by obs.html
 if (!window.settings) window.settings = {};
 
+const messageListIds = []
+
 $(document).ready(() => {
     $('#connectButton').click(connect);
     $('#uniqueIdInput').on('keyup', function (e) {
@@ -77,6 +79,10 @@ function isPendingStreak(data) {
 function addChatItem(color, data, text, summarize) {
     let container = location.href.includes('obs.html') ? $('.eventcontainer') : $('.chatcontainer');
 
+    if (messageListIds.find(data.msgId)) {
+        return
+    }
+
     if (container.find('div').length > 500) {
         container.find('div').slice(0, 200).remove();
     }
@@ -92,6 +98,10 @@ function addChatItem(color, data, text, summarize) {
             </span>
         </div>
     `);
+
+    messageListIds.push(data.msgId)
+
+    console.log(messageListIds, 'messageListIds')
 
     container.stop();
     container.animate({
